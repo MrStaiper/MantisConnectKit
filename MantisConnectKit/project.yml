@@ -1,10 +1,10 @@
-name: MantisConnectKit # The name of the App
-options: # Some general settings for the project
-  createIntermediateGroups: true # If the folders are nested, also nest the groups in Xcode
-  indentWidth: 2 # indent by 2 spaces
-  tabWidth: 2 # a tab is 2 spaces
+name: MantisConnectKit
+options:
+  createIntermediateGroups: true
+  indentWidth: 2
+  tabWidth: 2
   bundleIdPrefix: "mantis.wg"
-  postGenCommand: pod install --repo-update # Commands to run after generate .xcodeproj
+  postGenCommand: pod install --repo-update
   deploymentTarget:
     iOS: 14.0
 
@@ -19,14 +19,14 @@ settings:
       SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG TEST
 
 
-targets: # The List of our targets
+targets:
   ConnectExample:
     type: application
     platform: iOS
     deploymentTarget: "14.0"
     dependencies:
       - target: MantisConnectKit
-    sources: [ConnectExample] # Project that you run, for example Core projects or pod examples
+    sources: [ConnectExample]
     settings:
       base:
         INFOPLIST_FILE: ConnectExample/Info.plist
@@ -66,7 +66,7 @@ targets: # The List of our targets
           PRODUCT_NAME: MantisConnectKitTests
     info: 
       path: MantisConnectKitTests/Info.plist
-schemes: # Your project Schemes
+schemes:
   MantisConnectKit:
     build:
       targets:
