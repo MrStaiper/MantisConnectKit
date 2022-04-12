@@ -1,0 +1,88 @@
+name: MantisConnectKit # The name of the App
+options: # Some general settings for the project
+  createIntermediateGroups: true # If the folders are nested, also nest the groups in Xcode
+  indentWidth: 2 # indent by 2 spaces
+  tabWidth: 2 # a tab is 2 spaces
+  bundleIdPrefix: "mantis.wg"
+  postGenCommand: pod install --repo-update # Commands to run after generate .xcodeproj
+  deploymentTarget:
+    iOS: 14.0
+
+configs:
+  debug: debug
+  test: debug
+  release: release
+
+settings: 
+  configs:
+    test:
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG TEST
+
+
+targets: # The List of our targets
+  ConnectExample:
+    type: application
+    platform: iOS
+    deploymentTarget: "14.0"
+    dependencies:
+      - target: MantisConnectKit
+    sources: [ConnectExample] # Project that you run, for example Core projects or pod examples
+    settings:
+      base:
+        INFOPLIST_FILE: ConnectExample/Info.plist
+        ENABLE_BITCODE: NO
+        PRODUCT_BUNDLE_IDENTIFIER: mantis.wg.$(PRODUCT_NAME).Example
+        SDKROOT: iphoneos
+        SWIFT_VERSION: 5.0
+        IPHONEOS_DEPLOYMENT_TARGET: 14.0
+        TARGETED_DEVICE_FAMILY: "1"
+  MantisConnectKit:
+    type: framework
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: MantisConnectKit
+    settings:
+      base:
+        INFOPLIST_FILE: MantisConnectKit/Info.plist
+        ENABLE_BITCODE: NO
+        PRODUCT_BUNDLE_IDENTIFIER: mantis.wg.$(PRODUCT_NAME)
+        SDKROOT: iphoneos
+        SWIFT_VERSION: 5.0
+        IPHONEOS_DEPLOYMENT_TARGET: 14.0
+        ENABLE_TESTABILITY: YES
+        TARGETED_DEVICE_FAMILY: "1"
+        PRODUCT_NAME: MantisConnectKit
+        BUILD_LIBRARY_FOR_DISTRIBUTION: YES
+  MantisConnectKitTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "14.0"
+    dependencies: 
+      - target: MantisConnectKit
+    sources: [MantisConnectKitTests]
+    settings:
+      base:
+          PRODUCT_NAME: MantisConnectKitTests
+    info: 
+      path: MantisConnectKitTests/Info.plist
+schemes: # Your project Schemes
+  MantisConnectKit:
+    build:
+      targets:
+        MantisConnectKit: all
+        MantisConnectKitTests: [test]
+    test:
+      config: test
+      gatherCoverageData: true
+      coverageTargets:
+        - MantisConnectKit
+      targets:
+        - name: MantisConnectKitTests
+          parallelizable: true
+  ConnectExample:
+    build:
+      targets:
+        ConnectExample: all
+
+  
