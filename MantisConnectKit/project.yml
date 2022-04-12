@@ -36,6 +36,14 @@ targets:
         SWIFT_VERSION: 5.0
         IPHONEOS_DEPLOYMENT_TARGET: 14.0
         TARGETED_DEVICE_FAMILY: "1"
+    preBuildScripts:
+      - script: |
+          if which swiftlint >/dev/null; then
+            swiftlint
+          else
+            echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
+          fi
+        name: Swiftlint
   MantisConnectKit:
     type: framework
     platform: iOS
