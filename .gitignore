@@ -95,3 +95,7 @@ Pods/
 Podfile.lock
 *.xcodeproj
 *.xcworkspace
+._Info.plist
+._ContentView.swift
+._ConnectExampleApp.swift
+._MantisConnectKitTests.swift
